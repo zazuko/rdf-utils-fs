@@ -4,7 +4,7 @@
   "description": "RDFJS file system utils",
   "main": "index.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "standard && jest"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   "keywords": [
     "rdf",
     "rdfjs",
-    "rdf-ext",
     "fs",
     "utils"
   ],
@@ -24,13 +23,13 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-utils-fs",
   "dependencies": {
-    "lodash": "^4.17.4",
-    "rdf-formats-common": "^1.2.0"
+    "@rdfjs/formats-common": "^2.0.1"
   },
   "devDependencies": {
-    "mocha": "^3.5.3",
-    "rdf-ext": "^1.1.0",
-    "standard": "^10.0.3",
-    "tbbt-ld": "0.0.2"
+    "@rdfjs/dataset": "^1.0.1",
+    "jest": "^24.9.0",
+    "rdf-dataset-ext": "^1.0.0",
+    "standard": "^14.3.1",
+    "tbbt-ld": "^1.1.0"
   }
 }
