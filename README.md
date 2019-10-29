@@ -24,3 +24,7 @@ Loading the function from the file with the function name:
 ### fromFile(filename, options)
 
 Returns a quad stream for the given `filename`.
+
+### async toFile(stream, filename, options)
+
+Writes the given quad stream to `filename`. 
