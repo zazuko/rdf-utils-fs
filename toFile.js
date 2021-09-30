@@ -5,7 +5,7 @@ const { extname } = require('path')
 const { finished } = require('readable-stream')
 const { promisify } = require('util')
 
-function toFile (stream, filename, { extensions = config.extensions } = {}) {
+function toFile (stream, filename, { extensions = config.extensions, ...options } = {}) {
   const extension = extname(filename).split('.').pop()
   const mediaType = extensions[extension]
 
@@ -21,7 +21,7 @@ function toFile (stream, filename, { extensions = config.extensions } = {}) {
 
   const output = createWriteStream(filename)
 
-  serializer.import(stream).pipe(output)
+  serializer.import(stream, options).pipe(output)
 
   return promisify(finished)(output)
 }
