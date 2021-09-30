@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/rdf-ext/rdf-utils-fs.svg?branch=master)](https://travis-ci.org/rdf-ext/rdf-utils-dataset)
 [![npm version](https://badge.fury.io/js/rdf-utils-fs.svg)](https://badge.fury.io/js/rdf-utils-dataset)
 
-File system utils for RDFJS.
+File system utils for RDF/JS.
 
 ## Usage
 

@@ -1,4 +1,4 @@
-const rdf = require('@rdfjs/dataset')
+const rdf = require('rdf-ext')
 
 function example () {
   return rdf.dataset([rdf.quad(
