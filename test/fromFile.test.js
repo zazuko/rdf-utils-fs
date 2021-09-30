@@ -1,41 +1,40 @@
-/* global describe, expect, it */
-
-const example = require('./support/example')
-const fromFile = require('../fromFile')
+const { strictEqual, throws } = require('assert')
 const { resolve } = require('path')
-const rdf = require('@rdfjs/dataset')
-const { equals, fromStream } = require('rdf-dataset-ext')
+const { isReadable } = require('isstream')
+const { describe, it } = require('mocha')
+const rdf = require('rdf-ext')
+const fromFile = require('../fromFile')
+const example = require('./support/example')
 
 describe('fromFile', () => {
   it('should create a quad stream', async () => {
     const stream = fromFile(resolve(__dirname, 'support/example.nt'))
-    const dataset = await fromStream(rdf.dataset(), stream)
 
-    expect(equals(dataset, example()))
+    stream.resume()
+
+    strictEqual(isReadable(stream), true)
   })
 
   it('should forward options to parser', async () => {
-    const stream = fromFile(resolve(__dirname, 'support/example.ttl'))
-    const dataset = await fromStream(rdf.dataset(), stream, {
-      baseIRI: 'http://example.org/'
-    })
+    const stream = fromFile(resolve(__dirname, 'support/example.ttl'), { baseIRI: 'http://example.org/' })
+    const dataset = await rdf.dataset().import(stream)
 
-    expect(equals(dataset, example()))
+    strictEqual(dataset.toCanonical(), example().toCanonical())
   })
 
   it('should throw an error if the file extension is unknown', () => {
-    expect(() => {
+    throws(() => {
       fromFile('test.jpg')
-    }).toThrow()
+    })
   })
 
   it('should throw an error if the media type is unknown', () => {
-    expect(() => {
+    throws(() => {
       fromFile('test.jpg', {
         extensions: {
           jpg: 'image/jpeg'
         }
       })
-    }).toThrow()
+    })
   })
 })

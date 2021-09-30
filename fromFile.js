@@ -1,7 +1,7 @@
-const config = require('./defaults')
-const formats = require('@rdfjs/formats-common')
 const { createReadStream } = require('fs')
 const { extname } = require('path')
+const formats = require('@rdfjs/formats-common')
+const config = require('./defaults')
 
 function fromFile (filename, { extensions = config.extensions, ...options } = {}) {
   const extension = extname(filename).split('.').pop()

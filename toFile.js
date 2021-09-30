@@ -1,9 +1,9 @@
-const config = require('./defaults')
-const formats = require('@rdfjs/formats-common')
 const { createWriteStream } = require('fs')
 const { extname } = require('path')
-const { finished } = require('readable-stream')
 const { promisify } = require('util')
+const formats = require('@rdfjs/formats-common')
+const { finished } = require('readable-stream')
+const config = require('./defaults')
 
 function toFile (stream, filename, { extensions = config.extensions, ...options } = {}) {
   const extension = extname(filename).split('.').pop()
