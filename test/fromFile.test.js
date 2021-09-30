@@ -14,6 +14,15 @@ describe('fromFile', () => {
     expect(equals(dataset, example()))
   })
 
+  it('should forward options to parser', async () => {
+    const stream = fromFile(resolve(__dirname, 'support/example.ttl'))
+    const dataset = await fromStream(rdf.dataset(), stream, {
+      baseIRI: 'http://example.org/'
+    })
+
+    expect(equals(dataset, example()))
+  })
+
   it('should throw an error if the file extension is unknown', () => {
     expect(() => {
       fromFile('test.jpg')
