@@ -22,6 +22,17 @@ describe('fromFile', () => {
     strictEqual(dataset.toCanonical(), example().toCanonical())
   })
 
+  it('should combine extensions with default', async () => {
+    const extensions = {
+      trig: 'application/trig'
+    }
+
+    const stream = fromFile(resolve(__dirname, 'support/example.nt'), { extensions })
+    const dataset = await rdf.dataset().import(stream)
+
+    strictEqual(dataset.toCanonical(), example().toCanonical())
+  })
+
   it('should throw an error if the file extension is unknown', () => {
     throws(() => {
       fromFile('test.jpg')
