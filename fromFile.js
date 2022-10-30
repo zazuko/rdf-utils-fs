@@ -1,11 +1,16 @@
 const { createReadStream } = require('fs')
 const { extname } = require('path')
 const formats = require('@rdfjs/formats-common')
-const config = require('./defaults')
+const defaults = require('./defaults')
 
-function fromFile (filename, { extensions = config.extensions, ...options } = {}) {
+function fromFile (filename, { extensions, ...options } = {}) {
+  const combinedExtensions = {
+    ...defaults.extensions,
+    ...extensions
+  }
+
   const extension = extname(filename).split('.').pop()
-  const mediaType = extensions[extension]
+  const mediaType = combinedExtensions[extension]
 
   if (!mediaType) {
     throw new Error(`Unknown file extension: ${extension}`)

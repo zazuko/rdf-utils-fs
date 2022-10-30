@@ -15,7 +15,7 @@ describe('toFile', () => {
 
   it('should create a quad stream', async () => {
     const filename = 'tmp/test.nt'
-    await toFile(example().toStream(), filename)
+    await toFile(example.defaultGraph().toStream(), filename)
     const content = readFileSync(filename).toString().trim()
     const expected = readFileSync(resolve(__dirname, 'support/example.nt')).toString().trim()
 
@@ -24,13 +24,13 @@ describe('toFile', () => {
 
   it('should throw an error if the file extension is unknown', () => {
     throws(() => {
-      toFile(example().toStream(), 'test.jpg')
+      toFile(example.defaultGraph().toStream(), 'test.jpg')
     })
   })
 
   it('should throw an error if the media type is unknown', () => {
     throws(() => {
-      toFile(example().toStream(), 'test.jpg', {
+      toFile(example.defaultGraph().toStream(), 'test.jpg', {
         extensions: {
           jpg: 'image/jpeg'
         }
