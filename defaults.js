@@ -7,7 +7,7 @@ defaults.extensions = {
   nt: 'application/n-triples',
   n3: 'text/turtle',
   trig: 'application/trig',
-  rdf: 'application/xml+rdf',
+  rdf: 'application/rdf+xml',
   ttl: 'text/turtle'
 }
 
