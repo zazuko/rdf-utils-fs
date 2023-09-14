@@ -22,18 +22,17 @@ const dataset = await fromStream(env.dataset(), parserStream)
 await env.toFile(dataset, `/path/to/data.json`)
 ```
 
-## Usage standalone
+## Usage with an existing environment
 
 Same as above, but the RDF/JS Environment must be provided as first argument
 
 ```js
 import rdf from 'rdf-ext'
 import { fromFile, toFile } from 'rdf-utils-fs'
-import fromStream from 'rdf-dataset-ext/fromStream.js'
 
 // parse
 const parserStream = fromFile(rdf, `/path/to/data.nt`)
-const dataset = await fromStream(rdf.dataset(), parserStream)
+const dataset = await rdf.dataset().import(parserStream)
 
 // serialise
 await env.toFile(rdf, dataset, `/path/to/data.json`)
