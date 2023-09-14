@@ -1,4 +1,3 @@
-module.exports = {
-  fromFile: require('./fromFile'),
-  toFile: require('./toFile'),
-}
+export { default as fromFile } from './fromFile.js'
+export { default as toFile } from './toFile.js'
+export { default as FsUtilsFactory } from './Factory.js'

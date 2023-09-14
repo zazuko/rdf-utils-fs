@@ -1,14 +1,26 @@
-const { strictEqual, throws } = require('assert')
-const { resolve } = require('path')
-const { isReadable } = require('isstream')
-const { describe, it } = require('mocha')
-const rdf = require('rdf-ext')
-const fromFile = require('../fromFile')
-const example = require('./support/example')
+import { strictEqual, throws } from 'assert'
+import { resolve } from 'path'
+import url from 'url'
+import formats from '@rdfjs/formats-common'
+import { create } from '@zazuko/env'
+import { isReadableStream as isReadable } from 'is-stream'
+import { before, describe, it } from 'mocha'
+import fromStream from 'rdf-dataset-ext/fromStream.js'
+import toCanonical from 'rdf-dataset-ext/toCanonical.js'
+import Factory from '../Factory.js'
+import * as example from './support/example.js'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('fromFile', () => {
+  let env
+  before(() => {
+    env = create(Factory)
+    env.formats.import(formats)
+  })
+
   it('should create a quad stream', async () => {
-    const stream = fromFile(resolve(__dirname, 'support/example.nt'))
+    const stream = env.fromFile(resolve(__dirname, 'support/example.nt'))
 
     stream.resume()
 
@@ -16,10 +28,10 @@ describe('fromFile', () => {
   })
 
   it('should forward options to parser', async () => {
-    const stream = fromFile(resolve(__dirname, 'support/example.ttl'), { baseIRI: 'http://example.org/' })
-    const dataset = await rdf.dataset().import(stream)
+    const stream = env.fromFile(resolve(__dirname, 'support/example.ttl'), { baseIRI: 'http://example.org/' })
+    const dataset = await fromStream(env.dataset(), stream)
 
-    strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
+    strictEqual(toCanonical(dataset), toCanonical(example.defaultGraph()))
   })
 
   it('should combine extensions with default', async () => {
@@ -27,10 +39,10 @@ describe('fromFile', () => {
       trig: 'application/trig',
     }
 
-    const stream = fromFile(resolve(__dirname, 'support/example.nt'), { extensions })
-    const dataset = await rdf.dataset().import(stream)
+    const stream = env.fromFile(resolve(__dirname, 'support/example.nt'), { extensions })
+    const dataset = await fromStream(env.dataset(), stream)
 
-    strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
+    strictEqual(toCanonical(dataset), toCanonical(example.defaultGraph()))
   })
 
   const commonExtensions = [
@@ -42,22 +54,22 @@ describe('fromFile', () => {
   ]
   for (const [extension, expected] of commonExtensions) {
     it(`should load ${extension} out of the box`, async () => {
-      const stream = fromFile(resolve(__dirname, `support/example.${extension}`))
-      const dataset = await rdf.dataset().import(stream)
+      const stream = env.fromFile(resolve(__dirname, `support/example.${extension}`))
+      const dataset = await fromStream(env.dataset(), stream)
 
-      strictEqual(dataset.toCanonical(), expected().toCanonical())
+      strictEqual(toCanonical(dataset), toCanonical(expected()))
     })
   }
 
   it('should throw an error if the file extension is unknown', () => {
     throws(() => {
-      fromFile('test.jpg')
+      env.fromFile('test.jpg')
     })
   })
 
   it('should throw an error if the media type is unknown', () => {
     throws(() => {
-      fromFile('test.jpg', {
+      env.fromFile('test.jpg', {
         extensions: {
           jpg: 'image/jpeg',
         },

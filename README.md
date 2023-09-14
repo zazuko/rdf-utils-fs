@@ -5,19 +5,39 @@
 
 File system utils for RDF/JS.
 
-## Usage
+## Usage with `@zazuko/env` (preferred)
 
-Each util function can be loaded as property from the main module or by loading only the file with the same name.
+```js
+import { create } from '@zazuko/env'
+import { FsUtilsFactory } from 'rdf-utils-fs'
+import fromStream from 'rdf-dataset-ext/fromStream.js'
 
-### Example
+const env = create(FsUtilsFactory)
 
-Loading the function from the main module:
+// parse
+const parserStream = env.fromFile(`/path/to/data.nt`)
+const dataset = await fromStream(env.dataset(), parserStream)
 
-    const resource = require('rdf-utils-fs').fromFile
- 
-Loading the function from the file with the function name:
+// serialise
+await env.toFile(dataset, `/path/to/data.json`)
+```
 
-    const resource = require('rdf-utils-fs/fromFile')
+## Usage standalone
+
+Same as above, but the RDF/JS Environment must be provided as first argument
+
+```js
+import rdf from 'rdf-ext'
+import { fromFile, toFile } from 'rdf-utils-fs'
+import fromStream from 'rdf-dataset-ext/fromStream.js'
+
+// parse
+const parserStream = fromFile(rdf, `/path/to/data.nt`)
+const dataset = await fromStream(rdf.dataset(), parserStream)
+
+// serialise
+await env.toFile(rdf, dataset, `/path/to/data.json`)
+```
     
 ## Functions
 

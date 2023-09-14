@@ -11,4 +11,4 @@ defaults.extensions = {
   ttl: 'text/turtle',
 }
 
-module.exports = defaults
+export default defaults
