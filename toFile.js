@@ -5,7 +5,7 @@ const formats = require('@rdfjs/formats-common')
 const { finished } = require('readable-stream')
 const config = require('./defaults')
 
-function toFile (stream, filename, { extensions = config.extensions, ...options } = {}) {
+function toFile(stream, filename, { extensions = config.extensions, ...options } = {}) {
   const extension = extname(filename).split('.').pop()
   const mediaType = extensions[extension]
 

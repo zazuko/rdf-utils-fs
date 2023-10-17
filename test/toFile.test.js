@@ -32,8 +32,8 @@ describe('toFile', () => {
     throws(() => {
       toFile(example.defaultGraph().toStream(), 'test.jpg', {
         extensions: {
-          jpg: 'image/jpeg'
-        }
+          jpg: 'image/jpeg',
+        },
       })
     })
   })

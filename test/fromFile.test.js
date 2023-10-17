@@ -24,7 +24,7 @@ describe('fromFile', () => {
 
   it('should combine extensions with default', async () => {
     const extensions = {
-      trig: 'application/trig'
+      trig: 'application/trig',
     }
 
     const stream = fromFile(resolve(__dirname, 'support/example.nt'), { extensions })
@@ -38,7 +38,7 @@ describe('fromFile', () => {
     ['jsonld', example.namedGraph],
     ['n3', example.defaultGraph],
     ['trig', example.namedGraph],
-    ['nq', example.namedGraph]
+    ['nq', example.namedGraph],
   ]
   for (const [extension, expected] of commonExtensions) {
     it(`should load ${extension} out of the box`, async () => {
@@ -59,8 +59,8 @@ describe('fromFile', () => {
     throws(() => {
       fromFile('test.jpg', {
         extensions: {
-          jpg: 'image/jpeg'
-        }
+          jpg: 'image/jpeg',
+        },
       })
     })
   })
