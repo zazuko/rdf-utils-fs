@@ -24,6 +24,6 @@ export default function fromFile(env, filename, { extensions, ...options } = {})
   return parser.import(createReadStream(filename), {
     ...options,
     factory: env,
-    dataFactory: env
+    dataFactory: env,
   })
 }
