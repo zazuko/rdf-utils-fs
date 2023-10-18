@@ -3,15 +3,14 @@ import { extname } from 'path'
 import type { Environment } from '@rdfjs/environment/Environment.js'
 import type { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
 import { Readable } from 'readable-stream'
-import { Stream } from '@rdfjs/types'
+import type { Stream } from '@rdfjs/types'
 import defaults from './defaults.js'
 
-interface FromFileOpts extends Record<string, unknown> {
+export interface FromFileOpts extends Record<string, unknown> {
   extensions?: Record<string, string>
 }
-export type FromFileArgs = [string] | [string, FromFileOpts]
 
-export default function fromFile(env: Environment<FormatsFactory>, ...[filename, { extensions = {}, ...options } = {}]: FromFileArgs): Stream & Readable {
+export default function fromFile(env: Environment<FormatsFactory>, filename: string, { extensions = {}, ...options }: FromFileOpts = {}): Stream & Readable {
   const combinedExtensions = {
     ...defaults.extensions,
     ...extensions,

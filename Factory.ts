@@ -1,20 +1,29 @@
-import { Environment } from '@rdfjs/environment/Environment.js'
-import { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
-import { Stream } from '@rdfjs/types'
+import type { Environment } from '@rdfjs/environment/Environment.js'
+import type { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
+import type { Stream } from '@rdfjs/types'
 import { Readable } from 'readable-stream'
-import fromFile, { FromFileArgs } from './fromFile.js'
-import toFile, { ToFileArgs } from './toFile.js'
+import fromFile, { FromFileOpts } from './fromFile.js'
+import toFile, { ToFileOpts } from './toFile.js'
 
-interface Factory {
-  fromFile(...args: FromFileArgs): Stream & Readable
-  toFile(...args: ToFileArgs): void
+interface FromFile {
+  (filename: string, opts?: FromFileOpts): Stream & Readable
 }
 
-class Factory {
+interface ToFile {
+  (stream: Stream, filename: string, opts?: ToFileOpts): void
+}
+
+interface Factory {
+  fromFile: FromFile
+  toFile: ToFile
+}
+
+export default class FsUtilsFactory implements Factory {
+  fromFile!: FromFile
+  toFile!: ToFile
+
   init(this: Environment<Factory | FormatsFactory>) {
     this.fromFile = fromFile.bind(null, this)
     this.toFile = toFile.bind(null, this)
   }
 }
-
-export default Factory

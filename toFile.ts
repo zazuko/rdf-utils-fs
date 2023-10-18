@@ -7,12 +7,11 @@ import type { Environment } from '@rdfjs/environment/Environment.js'
 import type { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
 import config from './defaults.js'
 
-interface ToFileOpts extends Record<string, unknown> {
+export interface ToFileOpts extends Record<string, unknown> {
   extensions?: Record<string, string>
 }
-export type ToFileArgs = [Stream, string, ToFileOpts] | [Stream, string]
 
-export default function toFile(env: Environment<FormatsFactory>, ...[stream, filename, { extensions = config.extensions, ...options } = {}]: ToFileArgs) {
+export default function toFile(env: Environment<FormatsFactory>, stream: Stream, filename: string, { extensions = config.extensions, ...options }: ToFileOpts = {}) {
   const extension = extname(filename).split('.').pop()!
   const mediaType = extensions[extension]
 

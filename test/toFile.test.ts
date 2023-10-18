@@ -4,6 +4,7 @@ import { resolve } from 'path'
 import url from 'url'
 import formats from '@rdfjs/formats-common'
 import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
+// eslint-disable-next-line import/default
 import shell from 'shelljs'
 import FsUtilsFactory from '../Factory.js'
 import * as example from './support/example.js'
