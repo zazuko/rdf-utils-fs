@@ -8,7 +8,7 @@ defaults.extensions = {
   n3: 'text/turtle',
   trig: 'application/trig',
   rdf: 'application/rdf+xml',
-  ttl: 'text/turtle'
+  ttl: 'text/turtle',
 }
 
 module.exports = defaults

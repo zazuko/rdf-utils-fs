@@ -1,4 +1,4 @@
 module.exports = {
   fromFile: require('./fromFile'),
-  toFile: require('./toFile')
+  toFile: require('./toFile'),
 }

@@ -3,10 +3,10 @@ const { extname } = require('path')
 const formats = require('@rdfjs/formats-common')
 const defaults = require('./defaults')
 
-function fromFile (filename, { extensions, ...options } = {}) {
+function fromFile(filename, { extensions, ...options } = {}) {
   const combinedExtensions = {
     ...defaults.extensions,
-    ...extensions
+    ...extensions,
   }
 
   const extension = extname(filename).split('.').pop()
