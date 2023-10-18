@@ -3,11 +3,9 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import url from 'url'
 import formats from '@rdfjs/formats-common'
-import { create } from '@zazuko/env'
-import { describe, it, before } from 'mocha'
-import toStream from 'rdf-dataset-ext/toStream.js'
+import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
 import shell from 'shelljs'
-import Factory from '../Factory.js'
+import FsUtilsFactory from '../Factory.js'
 import * as example from './support/example.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
@@ -15,15 +13,15 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 describe('toFile', () => {
   shell.mkdir('-p', 'tmp')
 
-  let env
+  let env: DerivedEnvironment<DefaultEnv, FsUtilsFactory>
   before(() => {
-    env = create(Factory)
+    env = create(FsUtilsFactory)
     env.formats.import(formats)
   })
 
   it('should create a quad stream', async () => {
     const filename = 'tmp/test.nt'
-    await env.toFile(toStream(example.defaultGraph()), filename)
+    await env.toFile(example.defaultGraph().toStream(), filename)
     const content = readFileSync(filename).toString().trim()
     const expected = readFileSync(resolve(__dirname, 'support/example.nt')).toString().trim()
 
@@ -32,13 +30,13 @@ describe('toFile', () => {
 
   it('should throw an error if the file extension is unknown', () => {
     throws(() => {
-      env.toFile(toStream(example.defaultGraph()), 'test.jpg')
+      env.toFile(example.defaultGraph().toStream(), 'test.jpg')
     })
   })
 
   it('should throw an error if the media type is unknown', () => {
     throws(() => {
-      env.toFile(toStream(example.defaultGraph()), 'test.jpg', {
+      env.toFile(example.defaultGraph().toStream(), 'test.jpg', {
         extensions: {
           jpg: 'image/jpeg',
         },

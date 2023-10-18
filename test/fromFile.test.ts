@@ -2,18 +2,16 @@ import { strictEqual, throws } from 'assert'
 import { resolve } from 'path'
 import url from 'url'
 import formats from '@rdfjs/formats-common'
-import { create } from '@zazuko/env'
+import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
 import { isReadableStream as isReadable } from 'is-stream'
-import { before, describe, it } from 'mocha'
-import fromStream from 'rdf-dataset-ext/fromStream.js'
-import toCanonical from 'rdf-dataset-ext/toCanonical.js'
+import { Dataset } from '@zazuko/env/lib/Dataset.js'
 import Factory from '../Factory.js'
 import * as example from './support/example.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('fromFile', () => {
-  let env
+  let env: DerivedEnvironment<DefaultEnv, Factory>
   before(() => {
     env = create(Factory)
     env.formats.import(formats)
@@ -29,9 +27,9 @@ describe('fromFile', () => {
 
   it('should forward options to parser', async () => {
     const stream = env.fromFile(resolve(__dirname, 'support/example.ttl'), { baseIRI: 'http://example.org/' })
-    const dataset = await fromStream(env.dataset(), stream)
+    const dataset = await env.dataset().import(stream)
 
-    strictEqual(toCanonical(dataset), toCanonical(example.defaultGraph()))
+    strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
   })
 
   it('should combine extensions with default', async () => {
@@ -40,12 +38,12 @@ describe('fromFile', () => {
     }
 
     const stream = env.fromFile(resolve(__dirname, 'support/example.nt'), { extensions })
-    const dataset = await fromStream(env.dataset(), stream)
+    const dataset = await env.dataset().import(stream)
 
-    strictEqual(toCanonical(dataset), toCanonical(example.defaultGraph()))
+    strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
   })
 
-  const commonExtensions = [
+  const commonExtensions: [string, () => Dataset][] = [
     ['json', example.defaultGraph],
     ['jsonld', example.namedGraph],
     ['n3', example.defaultGraph],
@@ -55,9 +53,9 @@ describe('fromFile', () => {
   for (const [extension, expected] of commonExtensions) {
     it(`should load ${extension} out of the box`, async () => {
       const stream = env.fromFile(resolve(__dirname, `support/example.${extension}`))
-      const dataset = await fromStream(env.dataset(), stream)
+      const dataset = await env.dataset().import(stream)
 
-      strictEqual(toCanonical(dataset), toCanonical(expected()))
+      strictEqual(dataset.toCanonical(), expected().toCanonical())
     })
   }
 
