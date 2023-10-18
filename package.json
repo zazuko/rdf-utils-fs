@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint . --ext ts --ignore-path .gitignore --quiet",
-    "test": "c8 --reporter=lcov --reporter=text-summary mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
