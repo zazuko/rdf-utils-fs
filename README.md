@@ -5,11 +5,27 @@
 
 File system utils for RDF/JS.
 
-## Usage with `@zazuko/env` (preferred)
+## Usage with `@zazuko/env-node` (preferred)
+
+[@zazuko/env-node](https://npm.im/@zazuko/env-node) package extends [@zazuko/env](https://npm.im/@zazuko/env) by including
+the fs utils and default parsers/serializers for simplest possible usage in node environment.
+
+```js
+import rdf from '@zazuko/env-node'
+        
+// parse
+const parserStream = env.fromFile(`/path/to/data.nt`)
+const dataset = await fromStream(env.dataset(), parserStream)
+
+// serialise
+await env.toFile(dataset, `/path/to/data.json`)
+```
+
+## Extend `@zazuko/env` yourself
 
 ```js
 import { create } from '@zazuko/env'
-import { FsUtilsFactory } from 'rdf-utils-fs'
+import { FsUtilsFactory } from '@zazuko/rdf-utils-fs'
 import fromStream from 'rdf-dataset-ext/fromStream.js'
 import formats from '@rdfjs/formats-common'
 
