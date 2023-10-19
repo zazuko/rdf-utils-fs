@@ -7,8 +7,14 @@
   "scripts": {
     "postinstall": "patch-package",
     "lint": "eslint . --ext ts --ignore-path .gitignore --quiet",
-    "test": "mocha"
+    "test": "mocha",
+    "prepack": "tsc"
   },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "CHANGELOG.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/zazuko/rdf-utils-fs.git"
