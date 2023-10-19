@@ -1,6 +1,6 @@
-const rdf = require('rdf-ext')
+import rdf from '@zazuko/env'
 
-function defaultGraph() {
+export function defaultGraph() {
   return rdf.dataset([rdf.quad(
     rdf.namedNode('http://example.org/subject'),
     rdf.namedNode('http://example.org/predicate'),
@@ -8,16 +8,11 @@ function defaultGraph() {
   )])
 }
 
-function namedGraph() {
+export function namedGraph() {
   return rdf.dataset([rdf.quad(
     rdf.namedNode('http://example.org/subject'),
     rdf.namedNode('http://example.org/predicate'),
     rdf.literal('object'),
     rdf.namedNode('http://example.org/subject'),
   )])
-}
-
-module.exports = {
-  defaultGraph,
-  namedGraph,
 }

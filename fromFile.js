@@ -1,9 +1,8 @@
-const { createReadStream } = require('fs')
-const { extname } = require('path')
-const formats = require('@rdfjs/formats-common')
-const defaults = require('./defaults')
+import { createReadStream } from 'fs'
+import { extname } from 'path'
+import defaults from './defaults.js'
 
-function fromFile(filename, { extensions, ...options } = {}) {
+export default function fromFile(env, filename, { extensions, ...options } = {}) {
   const combinedExtensions = {
     ...defaults.extensions,
     ...extensions,
@@ -16,13 +15,15 @@ function fromFile(filename, { extensions, ...options } = {}) {
     throw new Error(`Unknown file extension: ${extension}`)
   }
 
-  const parser = formats.parsers.get(mediaType)
+  const parser = env.formats.parsers.get(mediaType)
 
   if (!parser) {
     throw new Error(`No parser available for media type: ${mediaType}`)
   }
 
-  return parser.import(createReadStream(filename), options)
+  return parser.import(createReadStream(filename), {
+    ...options,
+    factory: env,
+    dataFactory: env,
+  })
 }
-
-module.exports = fromFile
