@@ -1,5 +1,5 @@
 ---
-"@zazuko/rdf-utils-fs": patch
+"@zazuko/rdf-utils-fs": minor
 ---
 
-Convert source code to TypeScript
+Convert source code to TypeScript, bundle type declarations
