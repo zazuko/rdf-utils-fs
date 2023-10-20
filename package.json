@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts --ignore-path .gitignore --quiet",
     "test": "mocha",
     "prepack": "tsc",
-    "release": "changesets publish"
+    "release": "changeset publish"
   },
   "files": [
     "*.js",
