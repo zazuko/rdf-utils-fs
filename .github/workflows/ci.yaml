@@ -2,7 +2,7 @@ name: CI
 on: [push, pull_request]
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
@@ -10,13 +10,12 @@ jobs:
       - run: npm run lint
 
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node:
           - '20'
           - '18'
-          - '16'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3

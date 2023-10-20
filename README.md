@@ -1,15 +1,31 @@
-# rdf-utils-fs
+# @zazuko/rdf-utils-fs
 
-[![Build Status](https://travis-ci.org/rdf-ext/rdf-utils-fs.svg?branch=master)](https://travis-ci.org/rdf-ext/rdf-utils-dataset)
-[![npm version](https://badge.fury.io/js/rdf-utils-fs.svg)](https://badge.fury.io/js/rdf-utils-dataset)
+![Build Status](https://github.com/zazuko/rdf-utils-fs/actions/workflows/ci.yaml/badge.svg?branch=master)
+[![npm version](https://badge.fury.io/js/@zazuko%2Frdf-utils-fs.svg)](https://badge.fury.io/js/@zazuko%2Frdf-utils-dataset)
 
 File system utils for RDF/JS.
 
-## Usage with `@zazuko/env` (preferred)
+## Usage with `@zazuko/env-node` (preferred)
+
+[@zazuko/env-node](https://npm.im/@zazuko/env-node) package extends [@zazuko/env](https://npm.im/@zazuko/env) by including
+the fs utils and default parsers/serializers for simplest possible usage in node environment.
+
+```js
+import rdf from '@zazuko/env-node'
+        
+// parse
+const parserStream = env.fromFile(`/path/to/data.nt`)
+const dataset = await fromStream(env.dataset(), parserStream)
+
+// serialise
+await env.toFile(dataset, `/path/to/data.json`)
+```
+
+## Extend `@zazuko/env` yourself
 
 ```js
 import { create } from '@zazuko/env'
-import { FsUtilsFactory } from 'rdf-utils-fs'
+import { FsUtilsFactory } from '@zazuko/rdf-utils-fs'
 import fromStream from 'rdf-dataset-ext/fromStream.js'
 import formats from '@rdfjs/formats-common'
 
