@@ -1,7 +1,7 @@
 # @zazuko/rdf-utils-fs
 
 ![Build Status](https://github.com/zazuko/rdf-utils-fs/actions/workflows/ci.yaml/badge.svg?branch=master)
-[![npm version](https://badge.fury.io/js/@zazuko%2Frdf-utils-fs.svg)](https://badge.fury.io/js/@zazuko%2Frdf-utils-dataset)
+[![npm version](https://badge.fury.io/js/@zazuko%2Frdf-utils-fs.svg)](https://badge.fury.io/js/@zazuko%2Frdf-utils-fs)
 
 File system utils for RDF/JS.
 
