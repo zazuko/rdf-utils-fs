@@ -14,8 +14,7 @@ the fs utils and default parsers/serializers for simplest possible usage in node
 import rdf from '@zazuko/env-node'
         
 // parse
-const parserStream = env.fromFile(`/path/to/data.nt`)
-const dataset = await fromStream(env.dataset(), parserStream)
+const dataset = await env.dataset().import(env.fromFile(`/path/to/data.nt`))
 
 // serialise
 await env.toFile(dataset, `/path/to/data.json`)
