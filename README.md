@@ -19,11 +19,10 @@ const env = create(FsUtilsFactory)
 env.formats.import(formats)
 
 // parse
-const parserStream = env.fromFile(`/path/to/data.nt`)
-const dataset = await fromStream(env.dataset(), parserStream)
+const dataset = await env.dataset().import(env.fromFile(`/path/to/data.nt`))
 
 // serialise
-await env.toFile(dataset, `/path/to/data.json`)
+await env.toFile(dataset.toStream(), `/path/to/data.json`)
 ```
 
 ## Usage with an existing environment
