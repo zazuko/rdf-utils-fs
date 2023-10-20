@@ -1,5 +1,11 @@
 # @zazuko/rdf-utils-fs
 
+## 3.0.1
+
+### Patch Changes
+
+- 18d44d3: Restore @bergos as original author and have Zazuko as contributor
+
 ## 3.0.0
 
 ### Major Changes
