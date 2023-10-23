@@ -1,5 +1,11 @@
 # @zazuko/rdf-utils-fs
 
+## 3.0.2
+
+### Patch Changes
+
+- 7062ab8: `toFile` was not types as async in factory
+
 ## 3.0.1
 
 ### Patch Changes

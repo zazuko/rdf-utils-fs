@@ -1,6 +1,6 @@
 {
   "name": "@zazuko/rdf-utils-fs",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "RDF/JS file system utils",
   "main": "index.js",
   "type": "module",
