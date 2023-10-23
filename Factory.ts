@@ -10,7 +10,7 @@ interface FromFile {
 }
 
 interface ToFile {
-  (stream: Stream, filename: string, opts?: ToFileOpts): void
+  (stream: Stream, filename: string, opts?: ToFileOpts): Promise<void>
 }
 
 interface Factory {
