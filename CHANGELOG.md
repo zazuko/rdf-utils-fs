@@ -1,5 +1,11 @@
 # @zazuko/rdf-utils-fs
 
+## 3.1.0
+
+### Minor Changes
+
+- ab46d14: Allow `URL` as path argument of `toFile` and `fromFile`
+
 ## 3.0.2
 
 ### Patch Changes
