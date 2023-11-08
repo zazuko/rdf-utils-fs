@@ -1,5 +1,6 @@
 import { createReadStream } from 'fs'
 import { extname } from 'path'
+import url from 'url'
 import type { Environment } from '@rdfjs/environment/Environment.js'
 import type { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
 import { Readable } from 'readable-stream'
@@ -10,12 +11,13 @@ export interface FromFileOpts extends Record<string, unknown> {
   extensions?: Record<string, string>
 }
 
-export default function fromFile(env: Environment<FormatsFactory>, filename: string, { extensions = {}, ...options }: FromFileOpts = {}): Stream & Readable {
+export default function fromFile(env: Environment<FormatsFactory>, pathOrUrl: string | URL, { extensions = {}, ...options }: FromFileOpts = {}): Stream & Readable {
   const combinedExtensions = {
     ...defaults.extensions,
     ...extensions,
   }
 
+  const filename = typeof pathOrUrl === 'string' ? pathOrUrl : url.fileURLToPath(pathOrUrl)
   const extension = extname(filename).split('.').pop()!
   const mediaType = combinedExtensions[extension]
 

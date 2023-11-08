@@ -32,6 +32,14 @@ describe('fromFile', () => {
     strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
   })
 
+  it('should work with URL argument', async () => {
+    const path = new URL('support/example.ttl', import.meta.url)
+    const stream = env.fromFile(path, { baseIRI: 'http://example.org/' })
+    const dataset = await env.dataset().import(stream)
+
+    strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
+  })
+
   it('should combine extensions with default', async () => {
     const extensions = {
       trig: 'application/trig',

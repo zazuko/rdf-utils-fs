@@ -29,6 +29,15 @@ describe('toFile', () => {
     strictEqual(content, expected)
   })
 
+  it('should work with URL', async () => {
+    const filename = new URL('file:tmp/test.nt')
+    await env.toFile(example.defaultGraph().toStream(), filename)
+    const content = readFileSync(filename).toString().trim()
+    const expected = readFileSync(resolve(__dirname, 'support/example.nt')).toString().trim()
+
+    strictEqual(content, expected)
+  })
+
   it('should throw an error if the file extension is unknown', () => {
     throws(() => {
       env.toFile(example.defaultGraph().toStream(), 'test.jpg')

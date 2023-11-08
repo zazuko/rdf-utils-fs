@@ -6,11 +6,11 @@ import fromFile, { FromFileOpts } from './fromFile.js'
 import toFile, { ToFileOpts } from './toFile.js'
 
 interface FromFile {
-  (filename: string, opts?: FromFileOpts): Stream & Readable
+  (filename: string | URL, opts?: FromFileOpts): Stream & Readable
 }
 
 interface ToFile {
-  (stream: Stream, filename: string, opts?: ToFileOpts): Promise<void>
+  (stream: Stream, filename: string | URL, opts?: ToFileOpts): Promise<void>
 }
 
 interface Factory {

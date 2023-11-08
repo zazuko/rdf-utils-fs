@@ -1,6 +1,7 @@
 import { createWriteStream } from 'fs'
 import { extname } from 'path'
 import { promisify } from 'util'
+import url from 'url'
 import { finished } from 'readable-stream'
 import type { Stream } from '@rdfjs/types'
 import type { Environment } from '@rdfjs/environment/Environment.js'
@@ -11,7 +12,8 @@ export interface ToFileOpts extends Record<string, unknown> {
   extensions?: Record<string, string>
 }
 
-export default function toFile(env: Environment<FormatsFactory>, stream: Stream, filename: string, { extensions = config.extensions, ...options }: ToFileOpts = {}) {
+export default function toFile(env: Environment<FormatsFactory>, stream: Stream, pathOrUrl: string | URL, { extensions = config.extensions, ...options }: ToFileOpts = {}) {
+  const filename = typeof pathOrUrl === 'string' ? pathOrUrl : url.fileURLToPath(pathOrUrl)
   const extension = extname(filename).split('.').pop()!
   const mediaType = extensions[extension]
 
