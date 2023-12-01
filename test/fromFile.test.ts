@@ -51,6 +51,21 @@ describe('fromFile', () => {
     strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
   })
 
+  it('should handle relative IRIs', async () => {
+    const extensions = {
+      trig: 'application/trig',
+    }
+
+    const stream = env.fromFile(
+      resolve(__dirname, 'support/relative.ttl'),
+      { extensions, implicitBaseIRI: true },
+    )
+    const dataset = await env.dataset().import(stream)
+    const ptr = env.clownface({ dataset }).has(env.ns.rdf.type)
+
+    strictEqual(ptr.value, 'file://' + resolve(__dirname, 'support/relative.ttl'))
+  })
+
   const commonExtensions: [string, () => Dataset][] = [
     ['json', example.defaultGraph],
     ['jsonld', example.namedGraph],
