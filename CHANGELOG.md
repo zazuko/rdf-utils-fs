@@ -1,5 +1,11 @@
 # @zazuko/rdf-utils-fs
 
+## 3.2.0
+
+### Minor Changes
+
+- 738dafa: Add an option to assume `baseIRI` to be the `file://` of the document itself when parsing.
+
 ## 3.1.0
 
 ### Minor Changes
