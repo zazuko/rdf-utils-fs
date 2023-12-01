@@ -67,6 +67,8 @@ await env.toFile(rdf, dataset, `/path/to/data.json`)
 
 Returns a quad stream for the given `filename`.
 
+By default, the file is parsed without a base IRI. If you want to use the file's IRI as base, pass `{ implicitBaseIRI: true }` as options.
+
 ### async toFile(stream, filename, options)
 
 Writes the given quad stream to `filename`. 

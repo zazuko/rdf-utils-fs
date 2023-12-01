@@ -9,14 +9,22 @@ import defaults from './defaults.js'
 
 export interface FromFileOpts extends Record<string, unknown> {
   extensions?: Record<string, string>
+  /**
+   * Use the file path as base IRI
+   */
+  implicitBaseIRI?: boolean
 }
 
-export default function fromFile(env: Environment<FormatsFactory>, pathOrUrl: string | URL, { extensions = {}, ...options }: FromFileOpts = {}): Stream & Readable {
+export default function fromFile(env: Environment<FormatsFactory>, pathOrUrl: string | URL, { implicitBaseIRI, extensions = {}, ...options }: FromFileOpts = {}): Stream & Readable {
   const combinedExtensions = {
     ...defaults.extensions,
     ...extensions,
   }
 
+  let baseIRI: string | undefined
+  if (implicitBaseIRI) {
+    baseIRI = typeof pathOrUrl === 'string' ? url.pathToFileURL(pathOrUrl).toString() : pathOrUrl.toString()
+  }
   const filename = typeof pathOrUrl === 'string' ? pathOrUrl : url.fileURLToPath(pathOrUrl)
   const extension = extname(filename).split('.').pop()!
   const mediaType = combinedExtensions[extension]
@@ -33,6 +41,7 @@ export default function fromFile(env: Environment<FormatsFactory>, pathOrUrl: st
   }
 
   return parser.import(createReadStream(filename), {
+    baseIRI,
     ...options,
     factory: env,
     dataFactory: env,

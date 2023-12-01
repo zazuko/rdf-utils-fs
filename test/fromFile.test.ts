@@ -51,6 +51,68 @@ describe('fromFile', () => {
     strictEqual(dataset.toCanonical(), example.defaultGraph().toCanonical())
   })
 
+  context('relative IRI', () => {
+    it('should parse at face value by default', async () => {
+      const extensions = {
+        trig: 'application/trig',
+      }
+
+      const stream = env.fromFile(
+        resolve(__dirname, 'support/relative.ttl'),
+        { extensions },
+      )
+      const dataset = await env.dataset().import(stream)
+      const ptr = env.clownface({ dataset }).has(env.ns.rdf.type)
+
+      strictEqual(ptr.value, '')
+    })
+
+    it('should use file path as base with `implicitBaseIRI` option', async () => {
+      const extensions = {
+        trig: 'application/trig',
+      }
+
+      const stream = env.fromFile(
+        resolve(__dirname, 'support/relative.ttl'),
+        { extensions, implicitBaseIRI: true },
+      )
+      const dataset = await env.dataset().import(stream)
+      const ptr = env.clownface({ dataset }).has(env.ns.rdf.type)
+
+      strictEqual(ptr.value, 'file://' + resolve(__dirname, 'support/relative.ttl'))
+    })
+
+    it('should use file IRI as base with `implicitBaseIRI` option', async () => {
+      const extensions = {
+        trig: 'application/trig',
+      }
+
+      const stream = env.fromFile(
+        url.pathToFileURL(resolve(__dirname, 'support/relative.ttl')),
+        { extensions, implicitBaseIRI: true },
+      )
+      const dataset = await env.dataset().import(stream)
+      const ptr = env.clownface({ dataset }).has(env.ns.rdf.type)
+
+      strictEqual(ptr.value, 'file://' + resolve(__dirname, 'support/relative.ttl'))
+    })
+
+    it('should always prioritise explicit base IRI', async () => {
+      const extensions = {
+        trig: 'application/trig',
+      }
+
+      const stream = env.fromFile(
+        resolve(__dirname, 'support/relative.ttl'),
+        { extensions, implicitBaseIRI: true, baseIRI: 'http://example.com/' },
+      )
+      const dataset = await env.dataset().import(stream)
+      const ptr = env.clownface({ dataset }).has(env.ns.rdf.type)
+
+      strictEqual(ptr.value, 'http://example.com/')
+    })
+  })
+
   const commonExtensions: [string, () => Dataset][] = [
     ['json', example.defaultGraph],
     ['jsonld', example.namedGraph],
