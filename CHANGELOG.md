@@ -1,5 +1,12 @@
 # @zazuko/rdf-utils-fs
 
+## 3.3.0
+
+### Minor Changes
+
+- 170f9ae: Update `@rdfjs/environment` to v1
+- 170f9ae: Replace `@rdfjs/formats-common` with `@rdfjs/formats`
+
 ## 3.2.0
 
 ### Minor Changes
