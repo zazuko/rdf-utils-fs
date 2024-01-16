@@ -60,7 +60,7 @@
     "@types/rdfjs__term-map": "^2",
     "@types/rdfjs__term-set": "^2",
     "@types/rdfjs__traverser": "^0.1.5",
-    "@types/readable-stream": "^4.0.3",
+    "@types/readable-stream": "^4.0.10",
     "@types/shelljs": "^0.8.13",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
