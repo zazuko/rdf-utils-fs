@@ -26,7 +26,7 @@ await env.toFile(dataset, `/path/to/data.json`)
 import { create } from '@zazuko/env'
 import { FsUtilsFactory } from '@zazuko/rdf-utils-fs'
 import fromStream from 'rdf-dataset-ext/fromStream.js'
-import formats from '@rdfjs/formats-common'
+import formats from '@rdfjs/formats'
 
 // create an environment by adding FsUtilsFactory
 const env = create(FsUtilsFactory)
@@ -43,12 +43,12 @@ await env.toFile(dataset.toStream(), `/path/to/data.json`)
 ## Usage with an existing environment
 
 Same as above, but the RDF/JS Environment is provided as first argument. 
-That environment must implement RDF/JS DataFactory, [FormatsFactory](https://github.com/rdfjs-base/environment/blob/master/FormatsFactory.js).
+That environment must implement RDF/JS DataFactory, [FormatsFactory](https://github.com/rdfjs-base/formats/tree/master/Factory.js).
 
 ```js
 import rdf from 'rdf-ext'
 import { fromFile, toFile } from 'rdf-utils-fs'
-import formats from '@rdfjs/formats-common'
+import formats from '@rdfjs/formats'
 
 // add parsers+serializers
 rdf.formats.import(formats)

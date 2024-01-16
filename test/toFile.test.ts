@@ -2,7 +2,7 @@ import { strictEqual, throws } from 'assert'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import url from 'url'
-import formats from '@rdfjs/formats-common'
+import formats from '@rdfjs/formats'
 import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
 // eslint-disable-next-line import/default
 import shell from 'shelljs'

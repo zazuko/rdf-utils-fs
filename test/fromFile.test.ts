@@ -1,7 +1,7 @@
 import { strictEqual, throws } from 'assert'
 import { resolve } from 'path'
 import url from 'url'
-import formats from '@rdfjs/formats-common'
+import formats from '@rdfjs/formats'
 import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
 import { isReadableStream as isReadable } from 'is-stream'
 import { Dataset } from '@zazuko/env/lib/Dataset.js'

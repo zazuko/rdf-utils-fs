@@ -5,7 +5,7 @@ import url from 'url'
 import { finished } from 'readable-stream'
 import type { Stream } from '@rdfjs/types'
 import type { Environment } from '@rdfjs/environment/Environment.js'
-import type { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
+import type { FormatsFactory } from '@rdfjs/formats/Factory.js'
 import config from './defaults.js'
 
 export interface ToFileOpts extends Record<string, unknown> {
