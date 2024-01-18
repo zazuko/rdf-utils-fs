@@ -1,5 +1,11 @@
 # @zazuko/rdf-utils-fs
 
+## 3.3.1
+
+### Patch Changes
+
+- 41b6810: Remove `FormatsFactory` imported from `@rdfjs/environment`
+
 ## 3.3.0
 
 ### Minor Changes
