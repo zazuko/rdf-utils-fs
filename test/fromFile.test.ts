@@ -2,18 +2,19 @@ import { strictEqual, throws } from 'assert'
 import { resolve } from 'path'
 import url from 'url'
 import formats from '@rdfjs/formats'
-import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
+import baseEnv from '@zazuko/env'
 import { isReadableStream as isReadable } from 'is-stream'
 import { Dataset } from '@zazuko/env/lib/Dataset.js'
+import Environment from '@zazuko/env/Environment.js'
 import Factory from '../Factory.js'
 import * as example from './support/example.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('fromFile', () => {
-  let env: DerivedEnvironment<DefaultEnv, Factory>
+  let env = new Environment([Factory], { parent: baseEnv })
   before(() => {
-    env = create(Factory)
+    env = new Environment([Factory], { parent: baseEnv })
     env.formats.import(formats)
   })
 

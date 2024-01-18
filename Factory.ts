@@ -1,5 +1,5 @@
 import type { Environment } from '@rdfjs/environment/Environment.js'
-import type { FormatsFactory } from '@rdfjs/environment/FormatsFactory.js'
+import type { FormatsFactory } from '@rdfjs/formats/Factory.js'
 import type { Stream } from '@rdfjs/types'
 import { Readable } from 'readable-stream'
 import fromFile, { FromFileOpts } from './fromFile.js'

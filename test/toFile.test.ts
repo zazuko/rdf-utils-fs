@@ -3,7 +3,8 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import url from 'url'
 import formats from '@rdfjs/formats'
-import { create, DefaultEnv, DerivedEnvironment } from '@zazuko/env'
+import Environment from '@zazuko/env/Environment.js'
+import baseEnv from '@zazuko/env'
 // eslint-disable-next-line import/default
 import shell from 'shelljs'
 import FsUtilsFactory from '../Factory.js'
@@ -14,9 +15,9 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 describe('toFile', () => {
   shell.mkdir('-p', 'tmp')
 
-  let env: DerivedEnvironment<DefaultEnv, FsUtilsFactory>
+  let env = new Environment([FsUtilsFactory], { parent: baseEnv })
   before(() => {
-    env = create(FsUtilsFactory)
+    env = new Environment([FsUtilsFactory], { parent: baseEnv })
     env.formats.import(formats)
   })
 
